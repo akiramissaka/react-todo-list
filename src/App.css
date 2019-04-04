@@ -1,33 +1,130 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+body{
+	font-family: 'Roboto';
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+a, button{
+	border: 0 none;
+	outline: 0 none;
+	font-size: inherit;
+	text-decoration: none;
+	color: inherit;
+	background-color: transparent;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.hover-ani{
+	transition: transform 0.1s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.hover-ani:hover{
+	transform: scale(1.02);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#root{
+	max-width: 384px;				/* 414px - padding */
+	height: calc(100vh - 30px); 	/* 100vh - padding */
+	padding: 15px;
+	margin: 0 auto;
+}
+
+#root > .global-wrapper{
+	box-sizing: border-box;
+	max-width: inherit;
+	height: 100%;
+	/* padding: 10px; */
+	overflow: hidden;
+	box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.7);
+	background-color: #111;
+}
+
+.global-wrapper > .App{
+	position: relative;
+	max-width: inherit;
+}
+
+.global-wrapper .container-fixed{
+	position: fixed;
+	width: 100%;
+	height: 37px;
+	max-width: inherit;
+	top: 15px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.global-wrapper .container-action-buttons{
+	display: flex;
+	max-width: inherit;
+	padding: 8px 10px;
+	justify-content: space-between;
+	background-color: #666;
+}
+
+.global-wrapper .container-action-buttons a,
+.global-wrapper .container-action-buttons button{
+	display: inline-block;
+	padding: 5px;
+	border-radius: 15px;
+	outline: 0 none;
+	line-height: 1;
+	background-color: #efefef;
+	cursor: pointer;
+}
+
+.global-wrapper .container-items{
+	position: relative;
+	box-sizing: border-box;
+	height: calc(100vh - 72px);
+	top: 42px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.todo-item {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	padding: 7px 10px;
+	text-align: left;
+	color: #efefef;
+	cursor: default;
+}
+
+.todo-item:hover{
+	background-color: #222;
+}
+
+.todo-item > .title{
+	font-weight: 500;
+}
+
+.global-wrapper .modal-container{
+	position: absolute;
+	display: flex;
+	width: 100%;
+	height: calc(100% + 42px);
+	top: 0;
+	align-items: center;
+}
+
+.global-wrapper .modal-container > .modal-bg{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0.7;
+	background-color: #fff;
+	z-index: 3;
+}
+
+.global-wrapper .modal-container > .modal-area{
+	position: relative;
+	width: 100%;
+	height: 290px;
+	/* margin-top: calc(290px / 2); */
+	margin-right: 20px;
+	margin-left: 20px;
+	box-shadow: 2px 3px 5px 2px rgba(0, 0, 0, 0.6);
+	background-color: #111;
+	z-index: 4;
 }
