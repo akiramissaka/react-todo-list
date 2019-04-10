@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import TodoItem from '../TodoItem';
 
 class ItemsList extends Component {
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		this.state = {
 			todoList: []
 		}
+
 	}
 
 	componentDidMount(){
@@ -17,12 +18,24 @@ class ItemsList extends Component {
 		});
 	}
 
+	handleClick(title, text){
+		this.props.onClick(title, text)
+	}
+
 	render() {
 		return (
 			<div className="container-items">
 				{
 					this.state.todoList.map((item) =>{
-						return <TodoItem className="hover-ani" key={item.id} title={item.title} text={item.text}></TodoItem>
+						return( 
+							<TodoItem
+								onClick={ () => { this.handleClick(item.title, item.text) } }
+								className="hover-ani"
+								key={ item.id }
+								title={ item.title }
+								text={ item.text }
+							/>
+						)
 					})
 				}
 			</div>

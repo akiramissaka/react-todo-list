@@ -13,21 +13,8 @@ class ActionBar extends Component {
 		return (
 			<div className={ this.state.className }>
 				<div className="container-action-buttons">
-					{/* <ActionButton
-						type="nav"
-						path="/adiciona"
-						action="new"
-						className="hover-ani"
-					>
-						Adicionar
-					</ActionButton>
-					<ActionButton
-						action="remove"
-						className="hover-ani"
-					>
-						Excluir
-					</ActionButton> */}
 					{ this.props.children }
+					<div className="clear"></div>
 				</div>
 			</div>
 			

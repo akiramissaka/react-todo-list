@@ -23,15 +23,22 @@ class Field extends Component {
 			<div className="form-row">
 				<div className="form-col">
 					<label className="label">{ this.props.label }</label>
-				</div>
-				<div className="form-col">
-					<input 
-						type={this.props.type}
-						className={this.props.classCSS}
-						//onChange={() => {this.props.onChange('aaa')}}
-						value={this.state.value}
-						onChange={(e) =>{this.handleChange(e)}}
-					/>
+					{this.props.type === 'textarea' ? 
+						<textarea
+							className={this.props.classCSS}
+							value={this.state.value}
+							onChange={(e) =>{this.handleChange(e)}}
+						>
+						</textarea>
+					:
+						<input 
+							type={this.props.type}
+							className={this.props.classCSS}
+							//onChange={() => {this.props.onChange('aaa')}}
+							value={this.state.value}
+							onChange={(e) =>{this.handleChange(e)}}
+						/>
+					}
 				</div>
 			</div>	
 

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
+/* config */
+
 body{
 	font-family: 'Roboto';
 }
@@ -9,8 +11,49 @@ a, button{
 	outline: 0 none;
 	font-size: inherit;
 	text-decoration: none;
-	color: inherit;
+	color: #666;
 	background-color: transparent;
+}
+
+input, textarea{
+	box-sizing: border-box;
+	width: 100%;
+	padding: 5px;
+	border: 0 none;
+	font-family: "Roboto";
+	font-size: 18px;
+}
+
+textarea{
+	min-height: 250px;
+}
+
+.float-left{
+	float: left;
+	margin-right: 10px;
+}
+
+.float-right{
+	float: right;
+	margin-left: 10px;
+}
+
+.clear{
+	clear: both;
+}
+
+.screen-title{
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.form-row{
+	margin: 20px 0;
+}
+
+label{
+	display: inline-block;
+	margin-bottom: 5px;
 }
 
 .hover-ani{
@@ -21,11 +64,15 @@ a, button{
 	transform: scale(1.02);
 }
 
+
+/* home */
+
 #root{
 	max-width: 384px;				/* 414px - padding */
 	height: calc(100vh - 30px); 	/* 100vh - padding */
 	padding: 15px;
 	margin: 0 auto;
+	font-size: 18px;
 }
 
 #root > .global-wrapper{
@@ -35,6 +82,7 @@ a, button{
 	/* padding: 10px; */
 	overflow: hidden;
 	box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.7);
+	color: #efefef;
 	background-color: #111;
 }
 
@@ -43,10 +91,14 @@ a, button{
 	max-width: inherit;
 }
 
+.global-wrapper .main-container{
+	padding: 25px 15px;
+}
+
 .global-wrapper .container-fixed{
 	position: fixed;
 	width: 100%;
-	height: 37px;
+	height: 44px;
 	max-width: inherit;
 	top: 15px;
 	left: 50%;
@@ -54,10 +106,10 @@ a, button{
 }
 
 .global-wrapper .container-action-buttons{
-	display: flex;
+	/* display: flex; */
 	max-width: inherit;
-	padding: 8px 10px;
-	justify-content: space-between;
+	padding: 8px 15px;
+	/* justify-content: space-between; */
 	background-color: #666;
 }
 
@@ -76,7 +128,7 @@ a, button{
 	position: relative;
 	box-sizing: border-box;
 	height: calc(100vh - 72px);
-	top: 42px;
+	top: 44px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
@@ -85,7 +137,7 @@ a, button{
 	box-sizing: border-box;
 	display: block;
 	width: 100%;
-	padding: 7px 10px;
+	padding: 7px 15px;
 	text-align: left;
 	color: #efefef;
 	cursor: default;
@@ -101,11 +153,15 @@ a, button{
 
 .global-wrapper .modal-container{
 	position: absolute;
-	display: flex;
+	display: none;
 	width: 100%;
 	height: calc(100% + 42px);
 	top: 0;
 	align-items: center;
+}
+
+.global-wrapper .modal-container.active{
+	display: flex;
 }
 
 .global-wrapper .modal-container > .modal-bg{
@@ -118,13 +174,28 @@ a, button{
 }
 
 .global-wrapper .modal-container > .modal-area{
+	box-sizing: border-box;
 	position: relative;
-	width: 100%;
+	width: 85%;
 	height: 290px;
-	/* margin-top: calc(290px / 2); */
-	margin-right: 20px;
-	margin-left: 20px;
+	margin: 0 auto;
 	box-shadow: 2px 3px 5px 2px rgba(0, 0, 0, 0.6);
 	background-color: #111;
 	z-index: 4;
+}
+
+.global-wrapper .modal-container .modal-content{
+	padding: 30px 10px;
+	color: #efefef;
+}
+
+.global-wrapper .modal-content .text{
+	overflow: hidden;
+}
+
+
+/* Adiciona */
+
+.new-item-page{
+	text-align: center;
 }

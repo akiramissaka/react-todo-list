@@ -3,6 +3,8 @@ import {Link, withRouter} from 'react-router-dom';
 
 import Form from './components/Form';
 import Field from './components/Field';
+import ActionBar from './components/ActionBar';
+import ActionButton from './components/ActionButton';
 
 class NewItemPage extends Component {
 
@@ -69,23 +71,37 @@ class NewItemPage extends Component {
 		return (
 			<div className="new-item-page">
 				<Form onSubmit={(e) => {this.handleSubmit(e)}}>
-					<Field
-						type="text"
-						name="title"
-						classCSS="tx-title"
-						label="Título"
-						onChange={(elmnt, val) =>{this.handleChange(elmnt, val)}}
-					/>
-					<Field
-						type="text"
-						name="content"
-						classCSS="tx-content"
-						label="Conteúdo"
-						onChange={(elmnt, val) =>{this.handleChange(elmnt, val)}}
-					/>
-					<div className="container-bt">
-						<button>Gravar</button>
-						<Link to="/">Cancelar</Link>
+					<ActionBar type="static">
+						<ActionButton
+							className="float-left"
+						>
+							Gravar
+						</ActionButton>
+						<ActionButton
+							type="nav"
+							path="/"
+							action="remove"
+							className="float-right"
+						>
+							Cancelar
+						</ActionButton>
+					</ActionBar>
+					<div className="main-container">
+						<h1 className="screen-title">Adicionar Item</h1>
+						<Field
+							type="text"
+							name="title"
+							classCSS="tx-title"
+							label="Título"
+							onChange={(elmnt, val) =>{this.handleChange(elmnt, val)}}
+						/>
+						<Field
+							type="textarea"
+							name="content"
+							classCSS="tx-content"
+							label="Conteúdo"
+							onChange={(elmnt, val) =>{this.handleChange(elmnt, val)}}
+						/>
 					</div>
 				</Form>
 			</div>

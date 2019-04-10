@@ -6,36 +6,39 @@ import ActionButton from '../ActionButton';
 class Modal extends Component {
 	constructor(props){
 		super(props);
-				
 	}
-
-	/* 
-	
-	continuar modal
-	
-	*/
 
 	render() {
 		return (
-			<div className="modal-container">
+			<div className={`modal-container ${this.props.active ? 'active' : ''}`}>
 				<div className="modal-bg"></div>
-				<div class="modal-area">
+				<div className="modal-area">
 					<ActionBar type="static">
 						<ActionButton
 							type="nav"
 							path="/adiciona"
 							action="new"
-							className="hover-ani"
+							className="hover-ani float-left"
 						>
-							Adicionar
+							Editar
 						</ActionButton>
 						<ActionButton
 							action="remove"
-							className="hover-ani"
+							className="hover-ani float-left"
 						>
 							Excluir
 						</ActionButton>
+						<ActionButton
+							onClick={this.props.onClose}
+							className="hover-ani float-right"
+						>
+							X
+						</ActionButton>
 					</ActionBar>
+					<div className="modal-content">
+						<div className="title">{ this.props.title }</div>
+						<div className="text">{ this.props.text }</div>
+					</div>
 				</div>
 				
 			</div>

@@ -8,6 +8,33 @@ import ItemsList from './components/ItemsList';
 import Modal from './components/Modal';
 
 class App extends Component {
+	constructor(props){
+		super(props);
+
+		this.state = {
+			modalActive: false,
+			selectedItem: {
+				title: '',
+				text: ''
+			}
+		}
+	}
+
+	openModal(title, text){
+		//TODO alterar conteudo do modal
+		this.setState({
+			modalActive: true,
+			selectedItem: {
+				title,
+				text
+			}
+		})
+	}
+
+	closeModal(){
+		this.setState({modalActive: false})
+	}
+
 	render() {
 		return (
 			<div className="App">
@@ -16,40 +43,27 @@ class App extends Component {
 						type="nav"
 						path="/adiciona"
 						action="new"
-						className="hover-ani"
+						className="hover-ani float-left"
 					>
 						Adicionar
 					</ActionButton>
 					<ActionButton
 						action="remove"
-						className="hover-ani"
+						className="hover-ani float-left"
 					>
 						Excluir
 					</ActionButton>
 				</ActionBar>
-				<ItemsList></ItemsList>
+				<ItemsList
+					onClick={(title, text) => { this.openModal(title, text) }}
+				/>
 				<Modal
-					title="dasdasdas"
-					text="sdkljasl daksjdalksdj alksd jalsdk jaslkd ajsldaks djasl"
-				>
-					{/* <ActionBar>
-						<ActionButton
-							type="nav"
-							path="/adiciona"
-							action="new"
-							className="hover-ani"
-						>
-							Adicionar
-						</ActionButton>
-						<ActionButton
-							action="remove"
-							className="hover-ani"
-						>
-							Excluir
-						</ActionButton>
-
-					</ActionBar> */}
-				</Modal>
+					onClose={() => {this.closeModal()}}
+					active={this.state.modalActive}
+					title={this.state.selectedItem.title}
+					text={this.state.selectedItem.text}
+				/>
+				
 			</div>
 		);
 	}

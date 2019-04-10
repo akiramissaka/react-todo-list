@@ -11,7 +11,10 @@ class TodoItem extends Component {
 
 	render() {
 		return (
-			<button className={ this.state.className }>
+			<button
+				onClick={ this.props.onClick }
+				className={ this.state.className }
+			>
 				<div className="title">{this.props.title}</div>
 				<div className="text">{this.props.text}</div>
 			</button>
