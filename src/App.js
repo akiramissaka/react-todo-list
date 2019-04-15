@@ -43,13 +43,13 @@ class App extends Component {
 						type="nav"
 						path="/adiciona"
 						action="new"
-						className="hover-ani float-left"
+						className="float-left"
 					>
 						Adicionar
 					</ActionButton>
 					<ActionButton
 						action="remove"
-						className="hover-ani float-left"
+						className="float-left"
 					>
 						Excluir
 					</ActionButton>

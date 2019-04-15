@@ -148,7 +148,8 @@ label{
 }
 
 .todo-item > .title{
-	font-weight: 500;
+	margin-bottom: 5px;
+	font-weight: 600;
 }
 
 .global-wrapper .modal-container{
@@ -185,12 +186,21 @@ label{
 }
 
 .global-wrapper .modal-container .modal-content{
+	max-height: 175px;
 	padding: 30px 10px;
+	overflow-y: auto;
 	color: #efefef;
+}
+
+.global-wrapper .modal-content .title{
+	margin-bottom: 20px;
+	font-weight: 600;
+	word-break: break-word;
 }
 
 .global-wrapper .modal-content .text{
 	overflow: hidden;
+	word-break: break-word;
 }
 
 

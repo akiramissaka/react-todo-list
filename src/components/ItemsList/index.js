@@ -22,11 +22,32 @@ class ItemsList extends Component {
 		this.props.onClick(title, text)
 	}
 
+	mountItems(){
+		return(
+			this.state.todoList.map((item, i) =>{
+				const isLastItem = (i === (this.state.todoList.length - 1)) ? true : false;
+	
+				return( 
+					<TodoItem
+						onClick={ () => { this.handleClick(item.title, item.text) } }
+						className="hover-ani"
+						key={ item.id }
+						title={ item.title }
+						text={ item.text }
+						isLastItem={isLastItem}
+					/>
+				)
+			})
+		)
+		
+	}
+
 	render() {
 		return (
 			<div className="container-items">
 				{
-					this.state.todoList.map((item) =>{
+					this.mountItems()
+					/* this.state.todoList.map((item, i) =>{
 						return( 
 							<TodoItem
 								onClick={ () => { this.handleClick(item.title, item.text) } }
@@ -36,7 +57,7 @@ class ItemsList extends Component {
 								text={ item.text }
 							/>
 						)
-					})
+					}) */
 				}
 			</div>
 		);
