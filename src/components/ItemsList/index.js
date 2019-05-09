@@ -7,7 +7,22 @@ class ItemsList extends Component {
 		this.state = {
 			todoList: []
 		}
+	}
 
+	selectItem(){
+
+	}
+
+	handleClick(index, title, text){
+		this.props.onClick(index, title, text)
+	}
+
+	handlePress(){
+		this.props.onPress();
+	}
+
+	handleRelease(){
+		this.props.onRelease();
 	}
 
 	componentDidMount(){
@@ -18,19 +33,17 @@ class ItemsList extends Component {
 		});
 	}
 
-	handleClick(title, text){
-		this.props.onClick(title, text)
-	}
-
 	mountItems(){
 		return(
 			this.state.todoList.map((item, i) =>{
 				const isLastItem = (i === (this.state.todoList.length - 1)) ? true : false;
-	
+
 				return( 
 					<TodoItem
-						onClick={ () => { this.handleClick(item.title, item.text) } }
-						className="hover-ani"
+						onClick={ () => { this.handleClick(i, item.title, item.text) } }
+						onPress={ () => { this.handlePress() } }
+						onRelease={ () => { this.handleRelease() } }
+						className={`todo-item hover-ani ${this.props.selectedItems.indexOf(i) > -1 ? 'selected' : ''}`}
 						key={ item.id }
 						title={ item.title }
 						text={ item.text }
@@ -47,17 +60,6 @@ class ItemsList extends Component {
 			<div className="container-items">
 				{
 					this.mountItems()
-					/* this.state.todoList.map((item, i) =>{
-						return( 
-							<TodoItem
-								onClick={ () => { this.handleClick(item.title, item.text) } }
-								className="hover-ani"
-								key={ item.id }
-								title={ item.title }
-								text={ item.text }
-							/>
-						)
-					}) */
 				}
 			</div>
 		);

@@ -24,6 +24,11 @@ input, textarea{
 	font-size: 18px;
 }
 
+input.error,
+textarea.error{
+	outline: 1px solid red;
+}
+
 textarea{
 	min-height: 250px;
 }
@@ -141,6 +146,10 @@ label{
 	text-align: left;
 	color: #efefef;
 	cursor: default;
+}
+
+.todo-item.selected{
+	box-shadow: 0px 0px 25px 5px #fff inset;
 }
 
 .todo-item:hover{

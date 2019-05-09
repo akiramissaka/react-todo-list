@@ -8,6 +8,8 @@ class Modal extends Component {
 		super(props);
 	}
 
+	//TODO: alterar conteudo via modal
+
 	render() {
 		return (
 			<div className={`modal-container ${this.props.active ? 'active' : ''}`}>

@@ -4,9 +4,9 @@ class TodoItem extends Component {
 	constructor(props){
 		super(props);
 		
-		this.state = {
+		/* this.state = {
 			className: props.className + ' todo-item'
-		}
+		} */
 	}
 
 	render() {
@@ -14,7 +14,11 @@ class TodoItem extends Component {
 			<Fragment>
 				<button
 					onClick={ this.props.onClick }
-					className={ this.state.className }
+					onMouseDown={ this.props.onPress }
+					onMouseUp={ this.props.onRelease }
+					onMouseLeave={ this.props.onRelease }
+					onMouseOut={ this.props.onRelease }
+					className={ this.props.className }
 				>
 					<div className="title">{this.props.title}</div>
 					<div className="text">{this.props.text}</div>

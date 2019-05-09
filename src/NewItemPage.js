@@ -10,9 +10,20 @@ class NewItemPage extends Component {
 
 	constructor(props) {
 		super(props);
+
+		this.formFired = false;
+
 		this.state = {
 			title: '',
 			content: '',
+			title: {
+				isValid: false,
+				value: ''
+			},
+			content: {
+				isValid: false,
+				value: ''
+			},
 			list: []
 		};
 	}
@@ -25,28 +36,61 @@ class NewItemPage extends Component {
 
 	handleSubmit(e){
 		e.preventDefault();
-		this.saveData();
+
+		this.formFired = true;
+
+		//this.saveData();
+
+
+		//TODO arrumar retorno validação. possivel promise
+		console.log(this.validateData());
 	}
 
 	handleChange(elmnt, val){
 		switch(elmnt){
 			case 'tx-title':
-				this.setState({title: val});
+				this.setState({title: {...this.state.title, value: val}});
 				break;
 			;
 			case 'tx-content':
-				this.setState({content: val});
+				this.setState({title: {...this.state.content, value: val}});
 				break
 			
 			default :
-
-			
+				break;
 		}
 	
 	}
 
 	getList(){
 		return JSON.parse(localStorage.getItem('items.list'));
+	}
+
+	validateData(){
+		let blnError = true;
+
+		//debugger
+		if(this.state.title.value.length > 0){
+			blnError = false;
+			this.setState((prevState) => ({
+				title: {
+					...prevState.title,
+					isValid: true
+				}
+			}));
+		}
+
+		if(this.state.content.value.length > 0){
+			blnError = false;
+			this.setState((prevState) => ({
+				content: {
+					...prevState.content,
+					isValid: true
+				}
+			}));
+		}
+
+		return blnError
 	}
 
 	saveData(){
