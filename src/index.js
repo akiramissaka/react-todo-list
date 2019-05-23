@@ -11,6 +11,7 @@ ReactDOM.render(
 			<Switch>
 				<Route exact path="/" component={App} />
 				<Route path="/adiciona" component={NewItemPage} />
+				{/* <Route path="/edita" component={NewItemPage} /> */}
 			</Switch>
 		</BrowserRouter>
 	</div>

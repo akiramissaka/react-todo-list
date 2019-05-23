@@ -4,13 +4,9 @@ import TodoItem from '../TodoItem';
 class ItemsList extends Component {
 	constructor(props){
 		super(props);
-		this.state = {
+		/* this.state = {
 			todoList: []
-		}
-	}
-
-	selectItem(){
-
+		} */
 	}
 
 	handleClick(index, title, text){
@@ -26,24 +22,24 @@ class ItemsList extends Component {
 	}
 
 	componentDidMount(){
-		let itemsList = [];
+		/* let itemsList = [];
 		itemsList = JSON.parse(localStorage.getItem('items.list'));
 		this.setState({
 			todoList: [...itemsList]
-		});
+		}); */
 	}
 
 	mountItems(){
 		return(
-			this.state.todoList.map((item, i) =>{
-				const isLastItem = (i === (this.state.todoList.length - 1)) ? true : false;
+			this.props.todoList.map((item, i) =>{
+				const isLastItem = (i === (this.props.todoList.length - 1)) ? true : false;
 
 				return( 
 					<TodoItem
 						onClick={ () => { this.handleClick(i, item.title, item.text) } }
 						onPress={ () => { this.handlePress() } }
 						onRelease={ () => { this.handleRelease() } }
-						className={`todo-item hover-ani ${this.props.selectedItems.indexOf(i) > -1 ? 'selected' : ''}`}
+						className={`todo-item hover-ani ${this.props.selectedItemsIndex.indexOf(i) > -1 ? 'selected' : ''}`}
 						key={ item.id }
 						title={ item.title }
 						text={ item.text }

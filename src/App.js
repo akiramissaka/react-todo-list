@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './normalize.css';
 import './App.css';
 
@@ -12,13 +12,15 @@ class App extends Component {
 		super(props);
 
 		this.state = {
+			todoList: [],
 			modalActive: false,
 			clickedItem: {
+				index: null,
 				title: '',
 				text: ''
 			},
 			selectionMode: false,
-			selectedItems: []
+			selectedItemsIndex: []
 		}
 
 		this.buttonTimer = null;
@@ -29,9 +31,9 @@ class App extends Component {
 	 */
 	handleClick(index, title, text){
 		if(!this.state.selectionMode){
-			this.openModal(title, text)
+			this.openModal(index, title, text)
 		}else{
-			if(this.state.selectedItems.indexOf(index) > -1){
+			if(this.state.selectedItemsIndex.indexOf(index) > -1){
 				this.deSelectItem(index);
 			}else{
 				this.selectItem(index);
@@ -40,11 +42,12 @@ class App extends Component {
 		}
 	}
 
-	openModal(title, text){
+	openModal(index, title, text){
 		//if(!this.state.selectionMode){
 			this.setState({
 				modalActive: true,
 				clickedItem: {
+					index,
 					title,
 					text
 				}
@@ -53,7 +56,14 @@ class App extends Component {
 	}
 
 	closeModal(){
-		this.setState({modalActive: false})
+		this.setState({
+			modalActive: false,
+			clickedItem: {
+				index: null,
+				title: '',
+				text: ''
+			}
+		})
 	}
 
 	/**
@@ -76,19 +86,19 @@ class App extends Component {
 	}
 
 	selectItem(index){
-		if(this.state.selectedItems.indexOf(index) === -1){
-			this.setState({selectedItems: [...this.state.selectedItems, index]})
+		if(this.state.selectedItemsIndex.indexOf(index) === -1){
+			this.setState({selectedItemsIndex: [...this.state.selectedItemsIndex, index]})
 		}
 	}
 
 	deSelectItem(indexValue){
 
-		const selectedItems = [...this.state.selectedItems];
-		const index = selectedItems.indexOf(indexValue);
+		const selectedItemsIndex = [...this.state.selectedItemsIndex];
+		const index = selectedItemsIndex.indexOf(indexValue);
 
-		if(selectedItems.indexOf(indexValue) > -1){
-			selectedItems.splice(index, 1);
-			this.setState({selectedItems: selectedItems});
+		if(selectedItemsIndex.indexOf(indexValue) > -1){
+			selectedItemsIndex.splice(index, 1);
+			this.setState({selectedItemsIndex: selectedItemsIndex});
 		}
 		
 	}
@@ -96,12 +106,45 @@ class App extends Component {
 	cancelSelectionMode(){
 		this.setState({
 			selectionMode: false,
-			selectedItems: []
+			selectedItemsIndex: []
 		})
 	}
 
+	/**
+	 * Recebe um array de indices a serem deletados do state.todoList e grava o state.todoList atualizado no localstorage
+	 * @param {Array} indexesTobeDeleted Array com os indices a serem deletados do state.todoList
+	 */
+	deleteItems(indexesTobeDeleted){
+		let itemsToDeleted = [];
+
+		indexesTobeDeleted.forEach((index) =>{
+			itemsToDeleted.push(this.state.todoList[index]);
+		});
+
+		let newTodoList = this.state.todoList.filter(todoItem => {
+			return itemsToDeleted.map(todoItemDel => todoItemDel.id).indexOf(todoItem.id) === -1;
+		});
+
+		this.setState({todoList: newTodoList}, () =>{
+			this.cancelSelectionMode();
+			localStorage.setItem('items.list', JSON.stringify(this.state.todoList))
+		});
+	}
+
+	handleDeleteModal(indexTobeDeleted){
+		this.closeModal();
+		this.deleteItems([indexTobeDeleted]);
+	}
+
+	componentDidMount(){
+		let itemsList = [];
+		itemsList = JSON.parse(localStorage.getItem('items.list'));
+		this.setState({
+			todoList: [...itemsList]
+		});
+	}
+
 	render() {
-		console.log(this.state.selectedItems)
 		return (
 			<div className="App">
 				<ActionBar type="fixed">
@@ -113,37 +156,44 @@ class App extends Component {
 					>
 						Adicionar
 					</ActionButton>
-					<ActionButton
-						action="remove"
-						className="float-left"
-					>
-						Excluir
-					</ActionButton>
-					{this.state.selectionMode ? 
-						<ActionButton
-							action="cancel"
-							className="float-right"
-							onClick={() => {this.cancelSelectionMode()}}
-						>
-							Cancelar
-						</ActionButton> 
+
+					{this.state.selectionMode ?
+						<Fragment>
+							<ActionButton
+								action="remove"
+								className="float-left"
+								onClick={() => { this.deleteItems(this.state.selectedItemsIndex) }}
+							>
+								Excluir
+							</ActionButton>
+							<ActionButton
+								action="cancel"
+								className="float-right"
+								onClick={() => {this.cancelSelectionMode()}}
+							>
+								Cancelar
+							</ActionButton> 
+						</Fragment>
+						
 					: 
 						''
 					}
 					
 				</ActionBar>
 				<ItemsList
-					//onClick={(title, text) => { this.openModal(title, text) }}
+					todoList={this.state.todoList}
+					selectedItemsIndex={this.state.selectedItemsIndex}
 					onClick={(index, title, text) => { this.handleClick(index, title, text) }}
 					onPress={() =>{ this.startPress() }}
 					onRelease={() => { this.pressRelease() }}
-					selectedItems={this.state.selectedItems}
+					onDelete={() => { this.deleteItem() }}
 				/>
 				<Modal
-					onClose={() => {this.closeModal()}}
 					active={this.state.modalActive}
 					title={this.state.clickedItem.title}
 					text={this.state.clickedItem.text}
+					onClose={() => {this.closeModal()}}
+					onDelete={() =>{this.handleDeleteModal(this.state.clickedItem.index)}}
 				/>
 				
 			</div>

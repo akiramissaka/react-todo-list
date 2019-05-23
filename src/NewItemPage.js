@@ -41,8 +41,6 @@ class NewItemPage extends Component {
 
 		//this.saveData();
 
-
-		//TODO arrumar retorno validação. possivel promise
 		console.log(this.validateData());
 	}
 
@@ -67,11 +65,25 @@ class NewItemPage extends Component {
 	}
 
 	validateData(){
-		let blnError = true;
+		let blnError = false;
 
-		//debugger
-		if(this.state.title.value.length > 0){
-			blnError = false;
+		//TODO arrumar retorno validação. possivel promise
+		debugger
+		if(this.state.title.value.length === 0){
+			blnError = true;
+			this.setState((prevState) => ({
+				title: {
+					...prevState.title,
+					isValid: false
+				}
+			}));
+			/* this.setState((prevState) => ({
+				title: {
+					...prevState.title,
+					isValid: true
+				}
+			})); */
+		}else{
 			this.setState((prevState) => ({
 				title: {
 					...prevState.title,
@@ -80,8 +92,21 @@ class NewItemPage extends Component {
 			}));
 		}
 
-		if(this.state.content.value.length > 0){
-			blnError = false;
+		if(this.state.content.value.length === 0){
+			blnError = true;
+			this.setState((prevState) => ({
+				content: {
+					...prevState.content,
+					isValid: false
+				}
+			}));
+			/* this.setState((prevState) => ({
+				content: {
+					...prevState.content,
+					isValid: true
+				}
+			})); */
+		}else{
 			this.setState((prevState) => ({
 				content: {
 					...prevState.content,
@@ -89,6 +114,8 @@ class NewItemPage extends Component {
 				}
 			}));
 		}
+
+		console.log(blnError, '-==========')
 
 		return blnError
 	}

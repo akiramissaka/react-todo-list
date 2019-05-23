@@ -7,8 +7,6 @@ class ActionButton extends Component {
 
 	}
 
-
-
 	render() {
 		return (
 			this.props.type === 'nav' ? (

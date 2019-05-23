@@ -8,25 +8,24 @@ class Modal extends Component {
 		super(props);
 	}
 
-	//TODO: alterar conteudo via modal
-
 	render() {
 		return (
 			<div className={`modal-container ${this.props.active ? 'active' : ''}`}>
 				<div className="modal-bg"></div>
 				<div className="modal-area">
 					<ActionBar type="static">
-						<ActionButton
+						{/* <ActionButton
 							type="nav"
-							path="/adiciona"
-							action="new"
+							path="/edita"
+							action="edit"
 							className="hover-ani float-left"
 						>
 							Editar
-						</ActionButton>
+						</ActionButton> */}
 						<ActionButton
 							action="remove"
 							className="hover-ani float-left"
+							onClick={this.props.onDelete}
 						>
 							Excluir
 						</ActionButton>
